@@ -1,0 +1,4 @@
+{
+
+    "Packages":["requests"," bs4","SentenceTransformer","numpy","openai"]
+}

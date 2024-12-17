@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Query Interface</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        textarea, input { width: 100%; padding: 10px; margin: 10px 0; }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h1>Retrieval-Augmented Generation (RAG) Query System</h1>
+    <label for="url">Website URL:</label>
+    <input type="text" id="url" placeholder="Enter the website URL">
+    
+    <label for="query">Your Question:</label>
+    <textarea id="query" placeholder="Enter your question"></textarea>
+
+    <button onclick="submitQuery()">Get Answer</button>
+
+    <h2>Response:</h2>
+    <p id="response"></p>
+
+    <script>
+        async function submitQuery() {
+            const url = document.getElementById('url').value;
+            const query = document.getElementById('query').value;
+            const responseElement = document.getElementById('response');
+
+            // Send the data to the backend using Fetch API
+            const response = await fetch('/query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url, query: query })
+            });
+
+            const data = await response.json();
+            responseElement.textContent = data.answer;
+        }
+    </script>
+</body>
+</html>
